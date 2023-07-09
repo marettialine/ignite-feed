@@ -1,5 +1,6 @@
 :root{
     --white: #ffffff;
+
     --gray-100: #e1e1e6;
     --gray-300: #c4c4cc;
     --gray-400: #8d8d99;
@@ -10,6 +11,8 @@
 
     --green-300: #00B37E;
     --green-500: #00875f;
+
+    --red-500: #F75A68;
 }
 
 :focus{
