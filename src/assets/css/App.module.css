@@ -1,0 +1,10 @@
+.wrapper{
+    max-width: 70rem; /*No figma, o sidebar tem 16rem e o container dos posts tem 52rem, porém tem um espaçamento entre eles de 2rem = 70rem*/
+    margin: 2rem auto;
+    padding: 0 1rem;
+
+    display: grid;
+    grid-template-columns: 256px 1fr; /*sidebar terá tamanho fixo de 256px e os posts terá tamanho flexível, o restante do wrapper*/
+    gap: 2rem;
+    align-items: flex-start;
+}
