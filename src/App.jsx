@@ -60,7 +60,11 @@ export function App() {
             /* Método forEach percorre o array, mas ele não tem um retorno, por isso não podemos usar ele */
             posts.map(post =>{
               return (
-                <Post 
+                <Post
+                  key= { 
+                    // Sugestão blackbox: `post-${post.id}`
+                    post.id
+                  }
                   author = { post.author }
                   content = { post.content }
                   publishedAt = { post.publishedAt }

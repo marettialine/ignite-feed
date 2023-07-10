@@ -84,9 +84,12 @@ export function Post({ author, publishedAt, content}){
                 {
                     content.map(line => {
                         if (line.type === 'paragraph'){
-                            return <p>{ line.content }</p>
+                            // Não tem problema se a key repete, o important é ela não repetir dentro do contexto desse componente
+                            // Ou seja, se outro componente tem um paragrafo com essa mesma key, não tem importância
+                            // O importante é não ter outro paragrafo dentro desse componente com a mesma key
+                            return <p key={ line.content }>{ line.content }</p>
                         }else{
-                            return <p><a href="">{ line.content }</a></p>
+                            return <p key={ line.content }><a href="">{ line.content }</a></p>
                         }
                     })
                 }
@@ -113,7 +116,7 @@ export function Post({ author, publishedAt, content}){
             <div className={styles.commentList}>
                 {
                     comments.map(comment => {
-                        return <Comment content={ comment }/>    
+                        return <Comment key={ comment } content={ comment }/>    
                     })
                 }
             </div>
