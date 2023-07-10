@@ -1,13 +1,20 @@
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt'
+import { useState } from 'react'
 
 import styles from '../assets/css/Post.module.css'
 import { Avatar } from './Avatar'
 import { Comment } from './Comment'
 
-// props: { author: "", content: ""}
-
 export function Post({ author, publishedAt, content}){
+
+    // Com o estado o React não precisa ficar observando a mudança em todas as variáveis da aplicaçõa (pouco performático)
+    // Ele é avisado quando alguma informação é alterada
+    const [comments, setComments] = useState([
+        'Post muito bacana hein!!'
+    ], )
+
+    const [newCommentText, setNewCommentText] = useState('');
 
     // Retorna string maluca (Sat Jul 09 2022 20:00:00 GMT-0300 (Horário Padrão de Brasília))
     // publishedAt.toString()
@@ -30,6 +37,33 @@ export function Post({ author, publishedAt, content}){
         locale: ptBR,
         addSuffix: true
     })
+
+    // Quando a função é desparada mediante interação do usuário (clique no botão), usa handle na frente (padrão do Diego)
+    /*  Programação Imperativa
+        function handleCreateNewComment(){
+            event.preventDefault();
+
+            // event.target: retorna o formulário, pois o evento de submit está dentro do formulário (elemento que está recebendo aquele evento)
+
+            const newCommentText = event.target.comment.value;
+
+            // ... (spread operator): lê valor da variável e copia os valores que já existem na variável comments
+            setComments([...comments, newCommentText]);
+
+            event.target.comment.value = '';
+        }
+    */
+
+    function handleCreateNewComment(){
+        event.preventDefault();
+
+        setComments([...comments, newCommentText]);
+        setNewCommentText('');
+    }
+
+    function handleNewCommentChange(){
+        setNewCommentText(event.target.value);
+    }
 
     return (
         <article className={styles.post}>
@@ -58,11 +92,17 @@ export function Post({ author, publishedAt, content}){
                 }
             </div>
 
-            <form className={styles.commentForm}>
+            <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
                 <strong>Deixe seu feedback</strong>
 
                 <textarea
+                    name="comment"
                     placeholder="Deixe um comentário"
+                    value={
+                        // Toda vez que o newCommentText mudar, a textarea vai refletir essa alteração
+                        newCommentText
+                    }
+                    onChange={handleNewCommentChange}
                 />
 
                 <footer>
@@ -71,9 +111,11 @@ export function Post({ author, publishedAt, content}){
             </form>
 
             <div className={styles.commentList}>
-                <Comment />
-                <Comment />
-                <Comment />
+                {
+                    comments.map(comment => {
+                        return <Comment content={ comment }/>    
+                    })
+                }
             </div>
         </article>
     )
