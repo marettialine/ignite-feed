@@ -2,6 +2,7 @@
   "name": "js-ts",
   "private": true,
   "version": "0.0.0",
+  "homepage": "ignite-feed/",
   "type": "module",
   "scripts": {
     "dev": "vite",
