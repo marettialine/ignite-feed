@@ -3,7 +3,6 @@ import { Sidebar } from "./components/Sidebar.jsx"
 import { Post } from "./components/Post.jsx"
 
 import styles from './assets/css/App.module.css'
-
 import './assets/css/global.css'
 
 // Informações necessárias

@@ -1,35 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Header } from "./components/Header"
+import { Sidebar } from "./components/Sidebar"
+import { Post, PostType } from "./components/Post"
 
-function App() {
-  const [count, setCount] = useState(0)
+import styles from './assets/css/App.module.css'
 
+import './assets/css/global.css'
+
+// Informações necessárias
+// author: { avatar_url: '', name: '', role: ''}
+// publishedAt: date
+// content: String
+
+const posts: PostType[] = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: 'https://github.com/marettialine.png',
+      name:'Aline Maretti',
+      role: "Web Developer"
+    },
+    content: [
+      { type: 'paragraph', content: 'Fala galeraa 👋' },
+      { type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀' },
+      { type: 'link', content: '👉 jane.design/doctorcare' },
+      { type: 'link', content: '#novoprojeto' },
+      { type: 'link', content: '#nlw' },
+      { type: 'link', content: '#rocketseat' }
+    ],
+    publishedAt: new Date('2023-07-06 20:00:00')
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl: 'https://github.com/viniciuscharleaux.png',
+      name: "Vinicius Carneiro Charleaux",
+      role: "FullStack Web Developer and Data Science Student",
+    },
+    content: [
+      { type: 'paragraph', content: 'Eaeee rapazeada 👋' },
+      { type: 'paragraph', content: 'To pensando em começar um projeto novo. Ideias? 🤔' },
+      { type: 'link', content: '👉 Meu GitHub: https://github.com/ViniciusCharleaux' },
+      { type: 'link', content: '#novoprojeto' }
+    ],
+    publishedAt: new Date('2023-07-09 20:00:00')
+  }
+];
+
+// Iteração: criar estrutura de repetição (percorrer o array e para cada posição, fazer alguma coisa)
+
+export function App() {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div>
+      <Header />
+
+      <div className = {styles.wrapper}>
+        <Sidebar />
+        <main>
+          {
+            /* Método forEach percorre o array, mas ele não tem um retorno, por isso não podemos usar ele */
+            posts.map(post =>{
+              return (
+                <Post
+                  key = { 
+                    // Sugestão blackbox: `post-${post.id}`
+                    post.id
+                  }
+                  post = { post }
+                />
+              )
+            })
+          }
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
-
-export default App
